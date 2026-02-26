@@ -24,7 +24,7 @@
 - [ ] `AuthenticationResolver`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 - [ ] `JwtProvider`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 - [ ] `MemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
-- [ ] `AdminMemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
+- [x] `AdminMemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 
 #### 서비스 계층 추출
 - [ ] `MemberService` 클래스 신규 생성 (`gift.member` 패키지)
