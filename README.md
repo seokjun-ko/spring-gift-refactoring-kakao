@@ -22,7 +22,7 @@
 
 #### 미사용 코드 제거
 - [ ] `AuthenticationResolver`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
-- [ ] `JwtProvider`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
+- [x] `JwtProvider`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 - [ ] `MemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 - [x] `AdminMemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 
