@@ -2,7 +2,6 @@ package gift.auth;
 
 import gift.member.Member;
 import gift.member.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +15,6 @@ public class AuthenticationResolver {
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
 
-    @Autowired
     public AuthenticationResolver(JwtProvider jwtProvider, MemberRepository memberRepository) {
         this.jwtProvider = jwtProvider;
         this.memberRepository = memberRepository;
