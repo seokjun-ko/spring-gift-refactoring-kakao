@@ -107,7 +107,6 @@
 
 #### 미사용 코드 정리
 - [ ] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
-- [ ] 기타 IDE 경고 기반 미사용 import 일괄 정리
 
 #### 서비스 추출
 - [ ] `ProductService` 클래스 생성 (`gift.product` 패키지)
