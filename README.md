@@ -155,8 +155,8 @@
 ### Order (`04-order-plan`)
 
 #### 미사용 코드 정리
-- [ ] `OrderController`에서 `WishRepository` 필드, 생성자 파라미터, import 제거
-- [ ] `WishRepository` import 제거 후 "wish cleanup 미구현" TODO 이슈 별도 기록
+- [x] `OrderController`에서 `WishRepository` 필드, 생성자 파라미터, import 제거
+- [x] `WishRepository` import 제거 후 "wish cleanup 미구현" TODO 이슈 별도 기록
 
 #### 서비스 추출 (OrderService 신규 생성)
 - [ ] `OrderService` 클래스 생성 (`gift.order` 패키지)
