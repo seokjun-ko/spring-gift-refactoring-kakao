@@ -200,9 +200,6 @@
 
 ### Wish (`05-wish-plan`)
 
-#### 미사용 코드 정리
-- [ ] `Wish` 엔티티의 `// primitive FK - no entity reference` 주석을 설계 의도가 명확한 문구로 개선
-
 > `OrderController`에서 미사용 `WishRepository` 제거 항목은 **Order** 섹션에 통합 (중복 제거)
 
 #### WishService 추출
