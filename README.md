@@ -106,7 +106,6 @@
 - [ ] `@Transactional` 부재 확인 및 테스트 시나리오에 트랜잭션 경계 포함
 
 #### 미사용 코드 정리
-- [ ] `OptionController`의 `import java.util.stream.Collectors` 제거 (`.toList()` 전환 후)
 - [ ] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
 - [ ] 기타 IDE 경고 기반 미사용 import 일괄 정리
 
