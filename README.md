@@ -106,7 +106,7 @@
 - [ ] `@Transactional` 부재 확인 및 테스트 시나리오에 트랜잭션 경계 포함
 
 #### 미사용 코드 정리
-- [ ] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
+- [x] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
 
 #### 서비스 추출
 - [ ] `ProductService` 클래스 생성 (`gift.product` 패키지)
