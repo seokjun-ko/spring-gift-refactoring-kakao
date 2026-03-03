@@ -108,7 +108,7 @@
 - [x] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
 
 #### 서비스 추출
-- [ ] `ProductService` 클래스 생성 (`gift.product` 패키지)
+- [x] `ProductService` 클래스 생성 (`gift.product` 패키지)
 - [ ] `OptionService` 클래스 생성 (`gift.option` 패키지)
 - [ ] `ProductService`에 다음 메서드 추출:
   - `getProducts(Pageable): Page<ProductResponse>`
@@ -126,7 +126,7 @@
 
 #### 로직 재분배
 - [ ] `ProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행
-- [ ] `AdminProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행 (폼 Model 세팅은 Controller에 유지)
+- [x] `AdminProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행 (폼 Model 세팅은 Controller에 유지)
 - [ ] `OptionController`에서 비즈니스 로직 제거, `OptionService`에 위임만 수행
 - [ ] `ProductController`에서 `CategoryRepository` 직접 의존 제거 (Service 내부로 이동)
 - [ ] `OptionController`에서 `ProductRepository` 직접 의존 제거 (Service 내부로 이동)
