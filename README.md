@@ -28,8 +28,8 @@
 
 #### 서비스 계층 추출
 - [x] `MemberService` 클래스 신규 생성 (`gift.member` 패키지)
-  - [ ] `register(email, password)` -- 중복 검사 + 저장 + 토큰 발급
-  - [ ] `login(email, password)` -- 조회 + 비밀번호 검증 + 토큰 발급
+  - [x] `register(email, password)` -- 중복 검사 + 저장 + 토큰 발급
+  - [x] `login(email, password)` -- 조회 + 비밀번호 검증 + 토큰 발급
   - [x] `findById(id)` -- 회원 조회 (AdminMemberController용)
   - [x] `findAll()` -- 전체 회원 조회 (AdminMemberController용)
   - [x] `update(id, email, password)` -- 회원 정보 수정
@@ -43,8 +43,8 @@
   - [x] `@Transactional` 적용
 
 #### 로직 재분배 (Controller -> Service 위임)
-- [ ] `MemberController.register()` -- `MemberService.register()` 위임으로 변경
-- [ ] `MemberController.login()` -- `MemberService.login()` 위임으로 변경
+- [x] `MemberController.register()` -- `MemberService.register()` 위임으로 변경
+- [x] `MemberController.login()` -- `MemberService.login()` 위임으로 변경
 - [x] `AdminMemberController` 모든 메서드 -- `MemberService` 위임으로 변경
 - [x] `KakaoAuthController.callback()` -- `KakaoAuthService.kakaoLogin()` 위임으로 변경
 - [x] `KakaoAuthController.login()` -- `KakaoAuthService.buildKakaoAuthUrl()` 위임으로 변경
