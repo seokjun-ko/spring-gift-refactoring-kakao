@@ -110,7 +110,7 @@
 #### 서비스 추출
 - [x] `ProductService` 클래스 생성 (`gift.product` 패키지)
 - [x] `OptionService` 클래스 생성 (`gift.option` 패키지)
-- [ ] `ProductService`에 다음 메서드 추출:
+- [x] `ProductService`에 다음 메서드 추출:
   - `getProducts(Pageable): Page<ProductResponse>`
   - `getProduct(Long): ProductResponse`
   - `createProduct(ProductRequest): ProductResponse`
@@ -122,13 +122,13 @@
   - `createOption(Long productId, OptionRequest): OptionResponse`
   - `deleteOption(Long productId, Long optionId): void`
   - `subtractQuantity(Long optionId, int amount): void` (OrderController가 현재 직접 수행 중인 로직)
-- [ ] 두 서비스에 `@Service` + `@Transactional` 적용
+- [x] 두 서비스에 `@Service` + `@Transactional` 적용
 
 #### 로직 재분배
-- [ ] `ProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행
+- [x] `ProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행
 - [x] `AdminProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행 (폼 Model 세팅은 Controller에 유지)
 - [x] `OptionController`에서 비즈니스 로직 제거, `OptionService`에 위임만 수행
-- [ ] `ProductController`에서 `CategoryRepository` 직접 의존 제거 (Service 내부로 이동)
+- [x] `ProductController`에서 `CategoryRepository` 직접 의존 제거 (Service 내부로 이동)
 - [x] `OptionController`에서 `ProductRepository` 직접 의존 제거 (Service 내부로 이동)
 - [x] Validator 호출을 Service 내부로 이동 (Controller의 `validateName()` private 메서드 제거)
 - [ ] `@ExceptionHandler` 중복 제거 -- `@ControllerAdvice` 글로벌 핸들러 생성 (프로젝트 공통이므로 다른 기능 팀과 조율 필요)
