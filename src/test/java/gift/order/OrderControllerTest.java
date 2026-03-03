@@ -30,7 +30,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/create_order_success.sql"},
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_success() {
+    void 주문_생성_성공() {
         String token = jwtProvider.createToken("test@example.com");
 
         RestAssured
@@ -58,7 +58,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/create_order_fail_option_not_found.sql"},
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_fail_option_not_found() {
+    void 주문_생성_실패_옵션_미존재() {
         String token = jwtProvider.createToken("test@example.com");
 
         RestAssured
@@ -81,7 +81,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = "/data/truncate.sql",
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_fail_unauthorized() {
+    void 주문_생성_실패_인증_실패() {
         RestAssured
             .given()
                 .contentType(JSON)
@@ -102,7 +102,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = "/data/truncate.sql",
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_fail_validation() {
+    void 주문_생성_실패_유효성_검증() {
         RestAssured
             .given()
                 .contentType(JSON)
@@ -121,7 +121,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/create_order_fail_insufficient_stock.sql"},
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_fail_insufficient_stock() {
+    void 주문_생성_실패_재고_부족() {
         String token = jwtProvider.createToken("test@example.com");
 
         RestAssured
@@ -144,7 +144,7 @@ class OrderControllerTest {
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/create_order_fail_insufficient_point.sql"},
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void create_order_fail_insufficient_point() {
+    void 주문_생성_실패_포인트_부족() {
         String token = jwtProvider.createToken("test@example.com");
 
         RestAssured
