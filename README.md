@@ -73,13 +73,13 @@
 ### Category (`02-category-plan`)
 
 #### 서비스 추출 및 로직 재분배
-- [ ] `CategoryService` 클래스 신규 생성 (`@Service`, `@Transactional` 적용)
-- [ ] `findAll()` 로직을 Service로 이동 (조회 시 `@Transactional(readOnly = true)`)
-- [ ] `findById()` + 존재 확인 로직을 Service로 이동
-- [ ] `create()` 로직을 Service로 이동 (DTO -> Entity 변환 + 저장)
-- [ ] `update()` 로직을 Service로 이동 (존재 확인 + 상태 변경). dirty checking 활용으로 명시적 `save()` 제거 검토
-- [ ] `delete()` 로직을 Service로 이동 (삭제 전 Product 참조 존재 여부 확인 로직 추가)
-- [ ] `CategoryController`를 Service 위임 전용으로 변경 (Repository 의존 제거)
+- [x] `CategoryService` 클래스 신규 생성 (`@Service`, `@Transactional` 적용)
+- [x] `findAll()` 로직을 Service로 이동 (조회 시 `@Transactional(readOnly = true)`)
+- [x] `findById()` + 존재 확인 로직을 Service로 이동
+- [x] `create()` 로직을 Service로 이동 (DTO -> Entity 변환 + 저장)
+- [x] `update()` 로직을 Service로 이동 (존재 확인 + 상태 변경). dirty checking 활용으로 명시적 `save()` 제거 검토
+- [x] `delete()` 로직을 Service로 이동 (삭제 전 Product 참조 존재 여부 확인 로직 추가)
+- [x] `CategoryController`를 Service 위임 전용으로 변경 (Repository 의존 제거)
 
 #### 외부 패키지 의존 정리
 - [ ] `ProductController`에서 `CategoryRepository` 직접 참조를 `CategoryService`로 변경 (product 리팩터링 시 처리 -- 여기서는 계획만)
