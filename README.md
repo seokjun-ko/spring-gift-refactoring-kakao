@@ -27,16 +27,16 @@
 - [x] `AdminMemberController`에서 불필요한 `@Autowired` 어노테이션 및 import 제거
 
 #### 서비스 계층 추출
-- [ ] `MemberService` 클래스 신규 생성 (`gift.member` 패키지)
+- [x] `MemberService` 클래스 신규 생성 (`gift.member` 패키지)
   - [ ] `register(email, password)` -- 중복 검사 + 저장 + 토큰 발급
   - [ ] `login(email, password)` -- 조회 + 비밀번호 검증 + 토큰 발급
-  - [ ] `findById(id)` -- 회원 조회 (AdminMemberController용)
-  - [ ] `findAll()` -- 전체 회원 조회 (AdminMemberController용)
-  - [ ] `update(id, email, password)` -- 회원 정보 수정
-  - [ ] `chargePoint(id, amount)` -- 포인트 충전
-  - [ ] `delete(id)` -- 회원 삭제
+  - [x] `findById(id)` -- 회원 조회 (AdminMemberController용)
+  - [x] `findAll()` -- 전체 회원 조회 (AdminMemberController용)
+  - [x] `update(id, email, password)` -- 회원 정보 수정
+  - [x] `chargePoint(id, amount)` -- 포인트 충전
+  - [x] `delete(id)` -- 회원 삭제
   - [ ] `findOrCreateByKakaoEmail(email)` -- 카카오 자동가입/조회
-  - [ ] 각 메서드에 `@Transactional` 적용
+  - [x] 각 메서드에 `@Transactional` 적용
 - [x] `AuthService` 또는 `KakaoAuthService` 클래스 신규 생성 (`gift.auth` 패키지)
   - [x] `kakaoLogin(code)` -- 카카오 토큰 교환 + 사용자 정보 조회 + 회원 처리 + JWT 발급 통합
   - [x] `buildKakaoAuthUrl()` -- 카카오 인증 URL 생성
@@ -45,7 +45,7 @@
 #### 로직 재분배 (Controller -> Service 위임)
 - [ ] `MemberController.register()` -- `MemberService.register()` 위임으로 변경
 - [ ] `MemberController.login()` -- `MemberService.login()` 위임으로 변경
-- [ ] `AdminMemberController` 모든 메서드 -- `MemberService` 위임으로 변경
+- [x] `AdminMemberController` 모든 메서드 -- `MemberService` 위임으로 변경
 - [x] `KakaoAuthController.callback()` -- `KakaoAuthService.kakaoLogin()` 위임으로 변경
 - [x] `KakaoAuthController.login()` -- `KakaoAuthService.buildKakaoAuthUrl()` 위임으로 변경
 - [ ] `MemberController`의 `@ExceptionHandler` 제거 후 글로벌 `@ControllerAdvice` 도입 검토 (다른 기능 팀과 조율 필요)
