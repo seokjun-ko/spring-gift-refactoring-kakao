@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -25,6 +26,41 @@ class OrderControllerTest {
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/get_orders_success.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 주문_목록_조회_성공() {
+        String token = jwtProvider.createToken("test@example.com");
+
+        RestAssured
+            .given()
+                .header("Authorization", "Bearer " + token)
+                .queryParam("page", 0)
+                .queryParam("size", 10)
+            .when()
+                .get("/api/orders")
+            .then()
+                .statusCode(200)
+                .body("content", hasSize(2))
+                .body("content[0].optionId", equalTo(1))
+                .body("content[0].quantity", notNullValue())
+                .body("content[0].message", notNullValue())
+                .body("content[0].orderDateTime", notNullValue());
+    }
+
+    @Test
+    @Sql(scripts = "/data/truncate.sql",
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 주문_목록_조회_실패_인증_실패() {
+        RestAssured
+            .given()
+                .header("Authorization", "Bearer invalid-token")
+            .when()
+                .get("/api/orders")
+            .then()
+                .statusCode(401);
     }
 
     @Test

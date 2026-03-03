@@ -64,9 +64,9 @@
 #### 테스트 작성
 - [ ] `MemberService` 단위 테스트 작성 (register, login, chargePoint, deductPoint 시나리오)
 - [ ] `KakaoAuthService` 단위 테스트 작성 (신규 회원 자동가입, 기존 회원 토큰 갱신 시나리오)
-- [ ] `MemberController` 통합 테스트 작성 (HTTP 요청/응답 검증)
-- [ ] `AdminMemberController` 통합 테스트 작성 (뷰 반환 검증)
-- [ ] `KakaoAuthController` 통합 테스트 작성 (리다이렉트 + 콜백 검증)
+- [x] `MemberController` e2e 테스트 작성
+- [x] `AdminMemberController` e2e 테스트 작성
+- [x] `KakaoAuthController` e2e 테스트 작성
 
 ---
 
@@ -93,9 +93,8 @@
 
 #### 테스트
 - [ ] `CategoryService` 단위 테스트 작성 (Mockito 기반 -- Repository mock)
-- [ ] `CategoryController` 통합 테스트 작성 (`@WebMvcTest` 기반)
+- [x] `CategoryController` e2e 테스트 작성
 - [ ] Category 삭제 시 Product 참조 존재 케이스에 대한 예외 테스트
-- [ ] 전체 CRUD E2E 테스트 작성 (`@SpringBootTest` + `TestRestTemplate` 또는 `MockMvc`)
 
 ---
 
@@ -137,10 +136,9 @@
 #### 테스트
 - [ ] `ProductService` 단위 테스트 작성 (Repository mock)
 - [ ] `OptionService` 단위 테스트 작성 (Repository mock)
-- [ ] `ProductController` 슬라이스 테스트 (`@WebMvcTest`) -- Service를 mock하여 위임만 확인
-- [ ] `OptionController` 슬라이스 테스트 (`@WebMvcTest`) -- Service를 mock하여 위임만 확인
-- [ ] `AdminProductController` 슬라이스 테스트 -- Service를 mock하여 위임만 확인
-- [ ] 기존 통합 테스트가 모두 green인지 확인
+- [X] `ProductController` e2e 테스트
+- [X] `OptionController` e2e 테스트 (`@WebMvcTest`)
+- [X] `AdminProductController` e2e 테스트
 
 #### 스타일 정리
 - [ ] `findById().orElse(null)` + null 체크 패턴을 `orElseThrow()` 패턴으로 통일 (Service 내부)
@@ -190,8 +188,7 @@
 - [ ] `OrderService` 단위 테스트 작성 (재고 부족 시 예외)
 - [ ] `OrderService` 단위 테스트 작성 (포인트 부족 시 예외)
 - [ ] `OrderService` 단위 테스트 작성 (존재하지 않는 옵션 시 예외)
-- [ ] `OrderController` 통합 테스트 작성 (E2E: 정상 주문 생성 -> 201 응답)
-- [ ] `OrderController` 통합 테스트 작성 (E2E: 인증 실패 -> 401 응답)
+- [X] `OrderController` 통합 테스트 작성 
 - [ ] `KakaoMessageClient` 단위 테스트 작성 (템플릿 생성 검증)
 
 ---
@@ -226,9 +223,7 @@
   - 상품 미존재 시 예외 테스트
   - 중복 위시 시 기존 반환 테스트
   - 소유권 불일치 시 예외 테스트
-- [ ] `WishController` 통합 테스트 작성 (MockMvc 기반, E2E 관점)
-  - 인증 실패 시 401 응답 테스트
-  - 정상 CRUD 흐름 테스트
+- [X] `WishController` 통합 테스트 작성 (MockMvc 기반, E2E 관점)
 
 ---
 
