@@ -1,12 +1,13 @@
 package gift.option;
 
-import gift.product.Product;
-import gift.product.ProductRepository;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import gift.product.Product;
+import gift.product.ProductRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,7 +38,7 @@ public class OptionService {
             throw new IllegalArgumentException("이미 존재하는 옵션명입니다.");
         }
 
-        Option saved = optionRepository.save(new Option(product, request.name(), request.quantity()));
+        Option saved = optionRepository.save(request.toEntity(product));
         return OptionResponse.from(saved);
     }
 

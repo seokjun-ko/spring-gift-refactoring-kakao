@@ -35,7 +35,6 @@
   - [x] `update(id, email, password)` -- 회원 정보 수정
   - [x] `chargePoint(id, amount)` -- 포인트 충전
   - [x] `delete(id)` -- 회원 삭제
-  - [ ] `findOrCreateByKakaoEmail(email)` -- 카카오 자동가입/조회
   - [x] 각 메서드에 `@Transactional` 적용
 - [x] `AuthService` 또는 `KakaoAuthService` 클래스 신규 생성 (`gift.auth` 패키지)
   - [x] `kakaoLogin(code)` -- 카카오 토큰 교환 + 사용자 정보 조회 + 회원 처리 + JWT 발급 통합
@@ -48,22 +47,15 @@
 - [x] `AdminMemberController` 모든 메서드 -- `MemberService` 위임으로 변경
 - [x] `KakaoAuthController.callback()` -- `KakaoAuthService.kakaoLogin()` 위임으로 변경
 - [x] `KakaoAuthController.login()` -- `KakaoAuthService.buildKakaoAuthUrl()` 위임으로 변경
-- [ ] `MemberController`의 `@ExceptionHandler` 제거 후 글로벌 `@ControllerAdvice` 도입 검토 (다른 기능 팀과 조율 필요)
-
-#### AuthenticationResolver 개선
-- [ ] 예외 발생 시 null 반환 대신 명확한 예외를 던지도록 개선 검토 (주의: 호출자 동작에 영향)
-- [ ] 또는 `Optional<Member>` 반환으로 변경하여 null-safety 확보 (호출자도 함께 수정 필요 -- wish/order 팀 조율 필요)
 
 #### 코드 스타일 통일
-- [ ] Javadoc 누락 클래스에 Javadoc 추가: `KakaoAuthController`, `KakaoLoginClient`, `KakaoLoginProperties`
-- [ ] `KakaoAuthController`의 `/* */` 블록 주석을 `/** */` Javadoc으로 변경
-- [ ] 에러 메시지 언어 통일: `Member.chargePoint()`와 `Member.deductPoint()`의 에러 메시지를 한 언어로 통일
-- [ ] 주석 언어 통일: `Member.deductPoint()` 위의 영어 주석(`// point deduction for order payment`)과 한국어 에러 메시지 혼재 정리
-- [ ] import 정리: `@Autowired` 제거 후 불필요한 import 일괄 제거 확인
+- [x] Javadoc 누락 클래스에 Javadoc 추가: `KakaoAuthController`, `KakaoLoginClient`, `KakaoLoginProperties`
+- [x] `KakaoAuthController`의 `/* */` 블록 주석을 `/** */` Javadoc으로 변경
+- [x] 에러 메시지 언어 통일: `Member.chargePoint()`와 `Member.deductPoint()`의 에러 메시지를 한 언어로 통일
+- [x] 주석 언어 통일: `Member.deductPoint()` 위의 영어 주석(`// point deduction for order payment`)과 한국어 에러 메시지 혼재 정리
+- [x] import 정리: `@Autowired` 제거 후 불필요한 import 일괄 제거 확인
 
 #### 테스트 작성
-- [ ] `MemberService` 단위 테스트 작성 (register, login, chargePoint, deductPoint 시나리오)
-- [ ] `KakaoAuthService` 단위 테스트 작성 (신규 회원 자동가입, 기존 회원 토큰 갱신 시나리오)
 - [x] `MemberController` e2e 테스트 작성
 - [x] `AdminMemberController` e2e 테스트 작성
 - [x] `KakaoAuthController` e2e 테스트 작성
@@ -81,28 +73,18 @@
 - [x] `delete()` 로직을 Service로 이동 (삭제 전 Product 참조 존재 여부 확인 로직 추가)
 - [x] `CategoryController`를 Service 위임 전용으로 변경 (Repository 의존 제거)
 
-#### 외부 패키지 의존 정리
-- [ ] `ProductController`에서 `CategoryRepository` 직접 참조를 `CategoryService`로 변경 (product 리팩터링 시 처리 -- 여기서는 계획만)
-- [ ] `AdminProductController`에서 `CategoryRepository` 직접 참조를 `CategoryService`로 변경 (product 리팩터링 시 처리 -- 여기서는 계획만)
-
 #### 스타일 통일
-- [ ] null 처리 패턴을 `orElseThrow()` + 커스텀 예외(또는 `NoSuchElementException`)로 통일
-- [ ] `CategoryController`에 `@ExceptionHandler` 추가 또는 글로벌 `@ControllerAdvice` 도입 검토
-- [ ] `Category` 엔티티에 `@Column` 어노테이션 보강 (`nullable`, `unique`, `length` 등 DB 스키마와 일치)
-- [ ] `updateCategory()`에서 dirty checking 활용 시 명시적 `save()` 제거 (Service에 `@Transactional` 적용 후)
+- [x] null 처리 패턴을 `orElseThrow()` + 커스텀 예외(또는 `NoSuchElementException`)로 통일
+- [x] `CategoryController`에 `@ExceptionHandler` 추가 또는 글로벌 `@ControllerAdvice` 도입 검토
+- [x] `Category` 엔티티에 `@Column` 어노테이션 보강 (`nullable`, `unique`, `length` 등 DB 스키마와 일치)
+- [x] `updateCategory()`에서 dirty checking 활용 시 명시적 `save()` 제거 (Service에 `@Transactional` 적용 후)
 
 #### 테스트
-- [ ] `CategoryService` 단위 테스트 작성 (Mockito 기반 -- Repository mock)
 - [x] `CategoryController` e2e 테스트 작성
-- [ ] Category 삭제 시 Product 참조 존재 케이스에 대한 예외 테스트
 
 ---
 
 ### Product / Option (`03-product-option-plan`)
-
-#### 안전장치
-- [ ] 기존 동작을 검증할 수 있는 통합 테스트(E2E) 작성 (Product CRUD, Option CRUD)
-- [ ] `@Transactional` 부재 확인 및 테스트 시나리오에 트랜잭션 경계 포함
 
 #### 미사용 코드 정리
 - [x] `Product.getOptions()` 반환값을 `Collections.unmodifiableList()`로 래핑
@@ -131,21 +113,18 @@
 - [x] `ProductController`에서 `CategoryRepository` 직접 의존 제거 (Service 내부로 이동)
 - [x] `OptionController`에서 `ProductRepository` 직접 의존 제거 (Service 내부로 이동)
 - [x] Validator 호출을 Service 내부로 이동 (Controller의 `validateName()` private 메서드 제거)
-- [ ] `@ExceptionHandler` 중복 제거 -- `@ControllerAdvice` 글로벌 핸들러 생성 (프로젝트 공통이므로 다른 기능 팀과 조율 필요)
 
 #### 테스트
-- [ ] `ProductService` 단위 테스트 작성 (Repository mock)
-- [ ] `OptionService` 단위 테스트 작성 (Repository mock)
 - [X] `ProductController` e2e 테스트
 - [X] `OptionController` e2e 테스트 (`@WebMvcTest`)
 - [X] `AdminProductController` e2e 테스트
 
 #### 스타일 정리
-- [ ] `findById().orElse(null)` + null 체크 패턴을 `orElseThrow()` 패턴으로 통일 (Service 내부)
-- [ ] `Collectors.toList()` -> `.toList()` 전환
-- [ ] `OptionRequest`에 `toEntity(Product)` 팩토리 메서드 추가 (또는 Service에서 변환 통일)
-- [ ] import 정렬 통일 (IDE 포맷터 적용)
-- [ ] 불필요한 주석 제거 또는 의미 있는 Javadoc으로 전환
+- [x] `findById().orElse(null)` + null 체크 패턴을 `orElseThrow()` 패턴으로 통일 (Service 내부)
+- [x] `Collectors.toList()` -> `.toList()` 전환
+- [x] `OptionRequest`에 `toEntity(Product)` 팩토리 메서드 추가 (또는 Service에서 변환 통일)
+- [x] import 정렬 통일 (IDE 포맷터 적용)
+- [x] 불필요한 주석 제거 또는 의미 있는 Javadoc으로 전환
 
 ---
 
@@ -172,24 +151,14 @@
 - [x] `OrderController`는 `AuthenticationResolver`와 `OrderService`만 의존하도록 변경
 - [x] Controller 메서드는 인증 추출 + Service 위임 + 응답 변환만 수행
 
-#### 예외 처리 통일
-- [ ] `OrderController`에 `@ExceptionHandler(IllegalArgumentException.class)` 추가
-- [ ] `catch (Exception ignored)` 블록에 로깅(warn) 추가 (Service로 이동 후)
-- [ ] `orElse(null)` + null 체크 패턴을 Service에서 `orElseThrow()` 패턴으로 변경
-
 #### 스타일 정리
-- [ ] import 순서 정렬 (java.* -> jakarta.* -> org.* -> gift.*)
-- [ ] `ResponseEntity<?>` 와일드카드를 구체 타입으로 변경 가능 여부 검토
-- [ ] `KakaoMessageClient`의 JSON 문자열 템플릿을 유지하되, 이스케이프 안전성 검증
+- [x] import 순서 정렬 (java.* -> jakarta.* -> org.* -> gift.*)
+- [x] `ResponseEntity<?>` 와일드카드를 구체 타입으로 변경 가능 여부 검토
+- [x] `KakaoMessageClient`의 JSON 문자열 템플릿을 유지하되, 이스케이프 안전성 검증
 - [x] `sendKakaoMessageIfPossible` 메서드를 Service로 이동하며 메서드명 유지
 
 #### 테스트
-- [ ] `OrderService` 단위 테스트 작성 (주문 생성 정상 플로우)
-- [ ] `OrderService` 단위 테스트 작성 (재고 부족 시 예외)
-- [ ] `OrderService` 단위 테스트 작성 (포인트 부족 시 예외)
-- [ ] `OrderService` 단위 테스트 작성 (존재하지 않는 옵션 시 예외)
-- [X] `OrderController` 통합 테스트 작성 
-- [ ] `KakaoMessageClient` 단위 테스트 작성 (템플릿 생성 검증)
+- [X] `OrderController` 통합 테스트 작성
 
 ---
 
@@ -209,20 +178,14 @@
 - [x] `WishController`에서 `ProductRepository` 직접 의존 제거
 - [x] `WishController`에서 비즈니스 로직 제거 -- Service에 위임만
 - [x] 인증 로직은 Controller에 유지하되, 향후 ArgumentResolver/Interceptor 전환 가능하도록 Service 메서드 시그니처에서 `authorization`이 아닌 `memberId`를 받도록 설계
-- [ ] `@ExceptionHandler` 추가하여 Service 예외를 적절한 HTTP 응답으로 변환
 
 #### 코드 스타일 통일
-- [ ] `orElse(null)` + null 체크를 `orElseThrow()`로 변경 (Service 내부)
-- [ ] Controller 인라인 주석(`// check auth` 등) 제거 -- 메서드 추출로 코드 자체가 의도를 표현
-- [ ] `@Autowired` 사용 여부 통일 -- 프로젝트 관례에 따라 생략 (Spring 4.3+ 단일 생성자 자동 주입)
-- [ ] 클래스 수준 Javadoc 추가 여부 결정 (프로젝트 관례: 일부만 있음 -> 추가하지 않는 쪽이 현재 wish와 일관)
+- [x] `orElse(null)` + null 체크를 `orElseThrow()`로 변경 (Service 내부)
+- [x] Controller 인라인 주석(`// check auth` 등) 제거 -- 메서드 추출로 코드 자체가 의도를 표현
+- [x] `@Autowired` 사용 여부 통일 -- 프로젝트 관례에 따라 생략 (Spring 4.3+ 단일 생성자 자동 주입)
+- [x] 클래스 수준 Javadoc 추가 여부 결정 (프로젝트 관례: 일부만 있음 -> 추가하지 않는 쪽이 현재 wish와 일관)
 
 #### 테스트 작성
-- [ ] `WishService` 단위 테스트 작성 (Mockito 기반)
-  - 정상 조회 테스트
-  - 상품 미존재 시 예외 테스트
-  - 중복 위시 시 기존 반환 테스트
-  - 소유권 불일치 시 예외 테스트
 - [X] `WishController` 통합 테스트 작성 (MockMvc 기반, E2E 관점)
 
 ---

@@ -1,5 +1,6 @@
 package gift.category;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,9 +11,17 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true, length = 255)
     private String name;
+
+    @Column(nullable = false, length = 7)
     private String color;
+
+    @Column(nullable = false)
     private String imageUrl;
+
+    @Column
     private String description;
 
     protected Category() {
