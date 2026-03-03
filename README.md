@@ -156,21 +156,21 @@
 - [x] `WishRepository` import 제거 후 "wish cleanup 미구현" TODO 이슈 별도 기록
 
 #### 서비스 추출 (OrderService 신규 생성)
-- [ ] `OrderService` 클래스 생성 (`gift.order` 패키지)
-- [ ] `createOrder()` 비즈니스 로직을 `OrderService.createOrder(Member, OrderRequest)` 로 이동
-  - [ ] 옵션 조회 및 검증
-  - [ ] 재고 차감
-  - [ ] 가격 계산 및 포인트 차감
-  - [ ] 주문 엔티티 생성 및 저장
-  - [ ] 카카오 알림 발송 (best-effort)
-- [ ] `getOrders()` 조회 로직을 `OrderService.getOrders(Long memberId, Pageable)` 로 이동
-- [ ] `@Transactional` 적용 (createOrder에 쓰기 트랜잭션, getOrders에 readOnly)
-- [ ] `OrderService`에 `@Service` 어노테이션 부여
+- [x] `OrderService` 클래스 생성 (`gift.order` 패키지)
+- [x] `createOrder()` 비즈니스 로직을 `OrderService.createOrder(Member, OrderRequest)` 로 이동
+  - [x] 옵션 조회 및 검증
+  - [x] 재고 차감
+  - [x] 가격 계산 및 포인트 차감
+  - [x] 주문 엔티티 생성 및 저장
+  - [x] 카카오 알림 발송 (best-effort)
+- [x] `getOrders()` 조회 로직을 `OrderService.getOrders(Long memberId, Pageable)` 로 이동
+- [x] `@Transactional` 적용 (createOrder에 쓰기 트랜잭션, getOrders에 readOnly)
+- [x] `OrderService`에 `@Service` 어노테이션 부여
 
 #### Controller 슬림화
-- [ ] `OrderController`에서 `OptionRepository`, `MemberRepository`, `KakaoMessageClient` 직접 의존 제거
-- [ ] `OrderController`는 `AuthenticationResolver`와 `OrderService`만 의존하도록 변경
-- [ ] Controller 메서드는 인증 추출 + Service 위임 + 응답 변환만 수행
+- [x] `OrderController`에서 `OptionRepository`, `MemberRepository`, `KakaoMessageClient` 직접 의존 제거
+- [x] `OrderController`는 `AuthenticationResolver`와 `OrderService`만 의존하도록 변경
+- [x] Controller 메서드는 인증 추출 + Service 위임 + 응답 변환만 수행
 
 #### 예외 처리 통일
 - [ ] `OrderController`에 `@ExceptionHandler(IllegalArgumentException.class)` 추가
@@ -181,7 +181,7 @@
 - [ ] import 순서 정렬 (java.* -> jakarta.* -> org.* -> gift.*)
 - [ ] `ResponseEntity<?>` 와일드카드를 구체 타입으로 변경 가능 여부 검토
 - [ ] `KakaoMessageClient`의 JSON 문자열 템플릿을 유지하되, 이스케이프 안전성 검증
-- [ ] `sendKakaoMessageIfPossible` 메서드를 Service로 이동하며 메서드명 유지
+- [x] `sendKakaoMessageIfPossible` 메서드를 Service로 이동하며 메서드명 유지
 
 #### 테스트
 - [ ] `OrderService` 단위 테스트 작성 (주문 생성 정상 플로우)
