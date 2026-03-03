@@ -198,17 +198,17 @@
 > `OrderController`에서 미사용 `WishRepository` 제거 항목은 **Order** 섹션에 통합 (중복 제거)
 
 #### WishService 추출
-- [ ] `WishService` 클래스 생성 (`gift.wish.WishService`)
-- [ ] `@Service`, `@Transactional(readOnly = true)` 클래스 레벨 어노테이션 적용
-- [ ] `getWishes(Long memberId, Pageable pageable)` 메서드 추출 -- 위시 목록 조회
-- [ ] `addWish(Long memberId, Long productId)` 메서드 추출 -- 상품 검증 + 중복 검사 + 저장, `@Transactional` 적용
-- [ ] `removeWish(Long memberId, Long wishId)` 메서드 추출 -- 존재 확인 + 소유권 검증 + 삭제, `@Transactional` 적용
-- [ ] Service에서 비즈니스 예외 발생 시 적절한 예외 클래스 사용 (예: `NoSuchElementException`, `IllegalArgumentException`, 또는 커스텀 예외)
+- [x] `WishService` 클래스 생성 (`gift.wish.WishService`)
+- [x] `@Service`, `@Transactional(readOnly = true)` 클래스 레벨 어노테이션 적용
+- [x] `getWishes(Long memberId, Pageable pageable)` 메서드 추출 -- 위시 목록 조회
+- [x] `addWish(Long memberId, Long productId)` 메서드 추출 -- 상품 검증 + 중복 검사 + 저장, `@Transactional` 적용
+- [x] `removeWish(Long memberId, Long wishId)` 메서드 추출 -- 존재 확인 + 소유권 검증 + 삭제, `@Transactional` 적용
+- [x] Service에서 비즈니스 예외 발생 시 적절한 예외 클래스 사용 (예: `NoSuchElementException`, `IllegalArgumentException`, 또는 커스텀 예외)
 
 #### Controller 경량화
-- [ ] `WishController`에서 `ProductRepository` 직접 의존 제거
-- [ ] `WishController`에서 비즈니스 로직 제거 -- Service에 위임만
-- [ ] 인증 로직은 Controller에 유지하되, 향후 ArgumentResolver/Interceptor 전환 가능하도록 Service 메서드 시그니처에서 `authorization`이 아닌 `memberId`를 받도록 설계
+- [x] `WishController`에서 `ProductRepository` 직접 의존 제거
+- [x] `WishController`에서 비즈니스 로직 제거 -- Service에 위임만
+- [x] 인증 로직은 Controller에 유지하되, 향후 ArgumentResolver/Interceptor 전환 가능하도록 Service 메서드 시그니처에서 `authorization`이 아닌 `memberId`를 받도록 설계
 - [ ] `@ExceptionHandler` 추가하여 Service 예외를 적절한 HTTP 응답으로 변환
 
 #### 코드 스타일 통일
