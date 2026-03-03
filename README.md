@@ -109,7 +109,7 @@
 
 #### 서비스 추출
 - [x] `ProductService` 클래스 생성 (`gift.product` 패키지)
-- [ ] `OptionService` 클래스 생성 (`gift.option` 패키지)
+- [x] `OptionService` 클래스 생성 (`gift.option` 패키지)
 - [ ] `ProductService`에 다음 메서드 추출:
   - `getProducts(Pageable): Page<ProductResponse>`
   - `getProduct(Long): ProductResponse`
@@ -117,7 +117,7 @@
   - `updateProduct(Long, ProductRequest): ProductResponse`
   - `deleteProduct(Long): void`
   - `findById(Long): Product` (내부용 -- 다른 서비스에서 Product 엔티티가 필요할 때)
-- [ ] `OptionService`에 다음 메서드 추출:
+- [x] `OptionService`에 다음 메서드 추출:
   - `getOptions(Long productId): List<OptionResponse>`
   - `createOption(Long productId, OptionRequest): OptionResponse`
   - `deleteOption(Long productId, Long optionId): void`
@@ -127,10 +127,10 @@
 #### 로직 재분배
 - [ ] `ProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행
 - [x] `AdminProductController`에서 비즈니스 로직 제거, `ProductService`에 위임만 수행 (폼 Model 세팅은 Controller에 유지)
-- [ ] `OptionController`에서 비즈니스 로직 제거, `OptionService`에 위임만 수행
+- [x] `OptionController`에서 비즈니스 로직 제거, `OptionService`에 위임만 수행
 - [ ] `ProductController`에서 `CategoryRepository` 직접 의존 제거 (Service 내부로 이동)
-- [ ] `OptionController`에서 `ProductRepository` 직접 의존 제거 (Service 내부로 이동)
-- [ ] Validator 호출을 Service 내부로 이동 (Controller의 `validateName()` private 메서드 제거)
+- [x] `OptionController`에서 `ProductRepository` 직접 의존 제거 (Service 내부로 이동)
+- [x] Validator 호출을 Service 내부로 이동 (Controller의 `validateName()` private 메서드 제거)
 - [ ] `@ExceptionHandler` 중복 제거 -- `@ControllerAdvice` 글로벌 핸들러 생성 (프로젝트 공통이므로 다른 기능 팀과 조율 필요)
 
 #### 테스트
