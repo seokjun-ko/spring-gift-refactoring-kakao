@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -44,6 +45,10 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
     public Member findById(Long id) {
         return memberRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Member not found. id=" + id));
@@ -55,6 +60,11 @@ public class MemberService {
             throw new IllegalArgumentException("Email is already registered.");
         }
         return memberRepository.save(new Member(email, password));
+    }
+
+    @Transactional
+    public Member create(String email) {
+        return memberRepository.save(new Member(email));
     }
 
     @Transactional
@@ -78,6 +88,12 @@ public class MemberService {
     public void deductPoint(Long id, int amount) {
         Member member = findById(id);
         member.deductPoint(amount);
+    }
+
+    @Transactional
+    public void updateKakaoAccessToken(Long id, String kakaoAccessToken) {
+        Member member = findById(id);
+        member.updateKakaoAccessToken(kakaoAccessToken);
     }
 
     @Transactional
