@@ -34,7 +34,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order createOrder(Member member, OrderRequest request) {
+    public OrderResponse createOrder(Member member, OrderRequest request) {
         var option = optionRepository.findById(request.optionId()).orElse(null);
         if (option == null) {
             return null;
@@ -50,7 +50,7 @@ public class OrderService {
         var saved = orderRepository.save(new Order(option, member.getId(), request.quantity(), request.message()));
 
         sendKakaoMessageIfPossible(member, saved, option);
-        return saved;
+        return OrderResponse.from(saved);
     }
 
     private void sendKakaoMessageIfPossible(Member member, Order order, gift.option.Option option) {

@@ -26,7 +26,7 @@
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
-            <td th:text="${product.category.name}"></td>
+            <td th:text="${product.categoryName}"></td>
             <td>
                 <img th:if="${product.imageUrl != null and !product.imageUrl.isEmpty()}"
                      th:src="${product.imageUrl}" alt="상품 이미지" style="max-height: 50px;">

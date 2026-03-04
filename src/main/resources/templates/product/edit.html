@@ -37,7 +37,7 @@
                 <option th:each="category : ${categories}"
                         th:value="${category.id}"
                         th:text="${category.name}"
-                        th:selected="${categoryId != null ? categoryId == category.id : product.category.id == category.id}">
+                        th:selected="${categoryId != null ? categoryId == category.id : product.categoryId == category.id}">
                 </option>
             </select>
         </div>

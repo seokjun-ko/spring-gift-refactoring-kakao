@@ -40,33 +40,40 @@ public class MemberService {
         return new TokenResponse(token);
     }
 
-    public List<Member> findAll() {
-        return memberRepository.findAll();
+    public List<MemberResponse> findAll() {
+        return memberRepository.findAll().stream()
+            .map(MemberResponse::from)
+            .toList();
     }
 
-    public Member findById(Long id) {
-        return memberRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Member not found. id=" + id));
+    public MemberResponse findById(Long id) {
+        return MemberResponse.from(findEntityById(id));
     }
 
     @Transactional
-    public Member create(String email, String password) {
+    public MemberResponse create(String email, String password) {
         if (memberRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email is already registered.");
         }
-        return memberRepository.save(new Member(email, password));
+        Member member = memberRepository.save(new Member(email, password));
+        return MemberResponse.from(member);
     }
 
     @Transactional
     public void update(Long id, String email, String password) {
-        Member member = findById(id);
+        Member member = findEntityById(id);
         member.update(email, password);
     }
 
     @Transactional
     public void chargePoint(Long id, int amount) {
-        Member member = findById(id);
+        Member member = findEntityById(id);
         member.chargePoint(amount);
+    }
+
+    private Member findEntityById(Long id) {
+        return memberRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Member not found. id=" + id));
     }
 
     @Transactional

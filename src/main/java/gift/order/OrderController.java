@@ -52,12 +52,12 @@ public class OrderController {
             return ResponseEntity.status(401).build();
         }
 
-        var saved = orderService.createOrder(member, request);
-        if (saved == null) {
+        var response = orderService.createOrder(member, request);
+        if (response == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.created(URI.create("/api/orders/" + saved.getId()))
-            .body(OrderResponse.from(saved));
+        return ResponseEntity.created(URI.create("/api/orders/" + response.id()))
+            .body(response);
     }
 }

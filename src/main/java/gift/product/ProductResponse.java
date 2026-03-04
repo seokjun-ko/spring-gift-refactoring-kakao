@@ -5,7 +5,8 @@ public record ProductResponse(
     String name,
     int price,
     String imageUrl,
-    Long categoryId
+    Long categoryId,
+    String categoryName
 ) {
     public static ProductResponse from(Product product) {
         return new ProductResponse(
@@ -13,7 +14,8 @@ public record ProductResponse(
             product.getName(),
             product.getPrice(),
             product.getImageUrl(),
-            product.getCategory().getId()
+            product.getCategory().getId(),
+            product.getCategory().getName()
         );
     }
 }

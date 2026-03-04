@@ -51,7 +51,7 @@ public class AdminProductController {
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
-        Product product = productService.findById(id);
+        ProductResponse product = productService.findById(id);
         model.addAttribute("product", product);
         model.addAttribute("categories", productService.findAllCategories());
         return "product/edit";
@@ -66,7 +66,7 @@ public class AdminProductController {
         @RequestParam Long categoryId,
         Model model
     ) {
-        Product product = productService.findById(id);
+        ProductResponse product = productService.findById(id);
 
         List<String> errors = ProductNameValidator.validate(name, true);
         if (!errors.isEmpty()) {
@@ -102,7 +102,7 @@ public class AdminProductController {
 
     private void populateEditForm(
         Model model,
-        Product product,
+        ProductResponse product,
         List<String> errors,
         String name,
         int price,
