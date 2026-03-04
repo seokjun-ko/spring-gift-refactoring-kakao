@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -13,6 +15,56 @@ class MemberServiceTest {
 
     @Autowired
     MemberService memberService;
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 존재하는_이메일로_조회하면_회원을_반환한다() {
+        Optional<Member> result = memberService.findByEmail("existing@example.com");
+
+        assertThat(result).isPresent();
+        assertThat(result.get().getEmail()).isEqualTo("existing@example.com");
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 존재하지_않는_이메일로_조회하면_빈값을_반환한다() {
+        Optional<Member> result = memberService.findByEmail("nonexistent@example.com");
+
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 이메일만으로_회원을_생성하면_비밀번호_없이_저장된다() {
+        Member created = memberService.create("kakao@example.com");
+
+        Member found = memberService.findById(created.getId());
+        assertThat(found.getEmail()).isEqualTo("kakao@example.com");
+        assertThat(found.getPassword()).isNull();
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 이미_존재하는_이메일로_생성하면_예외가_발생한다() {
+        assertThatThrownBy(() -> memberService.create("existing@example.com"))
+            .isInstanceOf(Exception.class);
+
+        assertThat(memberService.findAll()).hasSize(1);
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 카카오_액세스_토큰을_업데이트하면_재조회_시_반영된다() {
+        memberService.updateKakaoAccessToken(1L, "new-kakao-token");
+
+        Member found = memberService.findById(1L);
+        assertThat(found.getKakaoAccessToken()).isEqualTo("new-kakao-token");
+    }
 
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/update_member_duplicate_email.sql"},
