@@ -59,6 +59,17 @@ class MemberServiceTest {
     @Test
     @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
          executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 이미_존재하는_이메일로_이메일만_생성하면_예외가_발생하고_회원수가_유지된다() {
+        assertThatThrownBy(() -> memberService.create("existing@example.com"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Email is already registered.");
+
+        assertThat(memberService.findAll()).hasSize(1);
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/find_member_by_email.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void 카카오_액세스_토큰을_업데이트하면_재조회_시_반영된다() {
         memberService.updateKakaoAccessToken(1L, "new-kakao-token");
 
