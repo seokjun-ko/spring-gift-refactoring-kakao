@@ -1,6 +1,7 @@
 package gift.order;
 
 import gift.auth.JwtProvider;
+import gift.member.MemberRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.http.ContentType.JSON;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
@@ -22,6 +24,9 @@ class OrderControllerTest {
 
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @BeforeEach
     void setUp() {
@@ -89,6 +94,9 @@ class OrderControllerTest {
                 .body("quantity", equalTo(2))
                 .body("message", equalTo("테스트 주문"))
                 .body("orderDateTime", notNullValue());
+
+        var member = memberRepository.findByEmail("test@example.com").orElseThrow();
+        assertThat(member.getPoint()).isEqualTo(1_000_000 - 10_000 * 2);
     }
 
     @Test
