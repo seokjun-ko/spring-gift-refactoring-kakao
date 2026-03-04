@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gift.member.Member;
-import gift.member.MemberRepository;
+import gift.member.MemberService;
 import gift.option.OptionRepository;
 
 @Service
@@ -14,18 +14,19 @@ import gift.option.OptionRepository;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OptionRepository optionRepository;
-    private final MemberRepository memberRepository;
+    private final
+    MemberService memberService;
     private final KakaoMessageClient kakaoMessageClient;
 
     public OrderService(
         OrderRepository orderRepository,
         OptionRepository optionRepository,
-        MemberRepository memberRepository,
+        MemberService memberService,
         KakaoMessageClient kakaoMessageClient
     ) {
         this.orderRepository = orderRepository;
         this.optionRepository = optionRepository;
-        this.memberRepository = memberRepository;
+        this.memberService = memberService;
         this.kakaoMessageClient = kakaoMessageClient;
     }
 
@@ -44,8 +45,7 @@ public class OrderService {
         optionRepository.save(option);
 
         var price = option.getProduct().getPrice() * request.quantity();
-        member.deductPoint(price);
-        memberRepository.save(member);
+        memberService.deductPoint(member.getId(), price);
 
         var saved = orderRepository.save(new Order(option, member.getId(), request.quantity(), request.message()));
 
