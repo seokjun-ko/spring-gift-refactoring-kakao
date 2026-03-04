@@ -70,6 +70,12 @@ public class MemberService {
     }
 
     @Transactional
+    public void deductPoint(Long id, int amount) {
+        Member member = findById(id);
+        member.deductPoint(amount);
+    }
+
+    @Transactional
     public void delete(Long id) {
         memberRepository.deleteById(id);
     }
