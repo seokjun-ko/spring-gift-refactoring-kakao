@@ -60,6 +60,11 @@ public class MemberService {
     @Transactional
     public void update(Long id, String email, String password) {
         Member member = findById(id);
+        memberRepository.findByEmail(email).ifPresent(existing -> {
+            if (!existing.getId().equals(id)) {
+                throw new IllegalArgumentException("Email is already registered.");
+            }
+        });
         member.update(email, password);
     }
 
