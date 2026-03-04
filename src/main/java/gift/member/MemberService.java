@@ -64,6 +64,9 @@ public class MemberService {
 
     @Transactional
     public Member create(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
         return memberRepository.save(new Member(email));
     }
 
