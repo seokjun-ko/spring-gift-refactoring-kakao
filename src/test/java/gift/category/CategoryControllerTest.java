@@ -161,6 +161,15 @@ class CategoryControllerTest {
                 .delete("/api/categories/1")
             .then()
                 .statusCode(204);
+
+        RestAssured
+            .given()
+                .contentType(JSON)
+            .when()
+                .get("/api/categories")
+            .then()
+                .statusCode(200)
+                .body("$", hasSize(0));
     }
 
 }
