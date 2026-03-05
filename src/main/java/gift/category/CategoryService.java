@@ -36,10 +36,13 @@ public class CategoryService {
         return CategoryResponse.from(saved);
     }
 
+    public List<Category> findAllEntities() {
+        return categoryRepository.findAll();
+    }
+
     @Transactional
     public CategoryResponse update(Long id, CategoryRequest request) {
-        Category category = categoryRepository.findById(id)
-            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id));
+        Category category = findEntityById(id);
         category.update(request.name(), request.color(), request.imageUrl(), request.description());
         return CategoryResponse.from(category);
     }
