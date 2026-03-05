@@ -101,6 +101,7 @@ public class MemberService {
 
     @Transactional
     public void delete(Long id) {
-        memberRepository.deleteById(id);
+        Member member = findById(id);
+        memberRepository.delete(member);
     }
 }
