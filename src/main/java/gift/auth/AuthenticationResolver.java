@@ -24,10 +24,7 @@ public class AuthenticationResolver {
         try {
             final String token = authorization.replace("Bearer ", "");
             final String email = jwtProvider.getEmail(token);
-            return memberService.findByEmail(email)
-                .orElseThrow(() -> new UnauthorizedException("회원을 찾을 수 없습니다"));
-        } catch (UnauthorizedException e) {
-            throw e;
+            return memberService.findByEmail(email).orElse(null);
         } catch (Exception e) {
             throw new UnauthorizedException("유효하지 않은 토큰입니다");
         }

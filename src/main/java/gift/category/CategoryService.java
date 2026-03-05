@@ -22,12 +22,9 @@ public class CategoryService {
     }
 
     public CategoryResponse findById(Long id) {
-        return CategoryResponse.from(findEntityById(id));
-    }
-
-    public Category findEntityById(Long id) {
-        return categoryRepository.findById(id)
+        Category category = categoryRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id));
+        return CategoryResponse.from(category);
     }
 
     @Transactional
@@ -38,14 +35,17 @@ public class CategoryService {
 
     @Transactional
     public CategoryResponse update(Long id, CategoryRequest request) {
-        Category category = findEntityById(id);
+        Category category = categoryRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id));
         category.update(request.name(), request.color(), request.imageUrl(), request.description());
         return CategoryResponse.from(category);
     }
 
     @Transactional
     public void delete(Long id) {
-        Category category = findEntityById(id);
-        categoryRepository.delete(category);
+        if (!categoryRepository.existsById(id)) {
+            throw new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id);
+        }
+        categoryRepository.deleteById(id);
     }
 }

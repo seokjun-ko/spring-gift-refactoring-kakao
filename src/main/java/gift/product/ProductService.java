@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gift.category.Category;
-import gift.category.CategoryService;
+import gift.category.CategoryRepository;
 
 @Service
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
-    private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository, CategoryService categoryService) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
-        this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional(readOnly = true)
@@ -34,14 +34,16 @@ public class ProductService {
     }
 
     public Product createProduct(String name, int price, String imageUrl, Long categoryId) {
-        Category category = categoryService.findEntityById(categoryId);
+        Category category = categoryRepository.findById(categoryId)
+            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + categoryId));
         return productRepository.save(new Product(name, price, imageUrl, category));
     }
 
     public Product updateProduct(Long id, String name, int price, String imageUrl, Long categoryId) {
         Product product = productRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("상품이 존재하지 않습니다. id=" + id));
-        Category category = categoryService.findEntityById(categoryId);
+        Category category = categoryRepository.findById(categoryId)
+            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + categoryId));
         product.update(name, price, imageUrl, category);
         return productRepository.save(product);
     }
@@ -64,7 +66,8 @@ public class ProductService {
 
     public ProductResponse createProduct(ProductRequest request) {
         validateName(request.name());
-        Category category = categoryService.findEntityById(request.categoryId());
+        Category category = categoryRepository.findById(request.categoryId())
+            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + request.categoryId()));
         Product saved = productRepository.save(request.toEntity(category));
         return ProductResponse.from(saved);
     }
@@ -73,7 +76,8 @@ public class ProductService {
         validateName(request.name());
         Product product = productRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("상품이 존재하지 않습니다. id=" + id));
-        Category category = categoryService.findEntityById(request.categoryId());
+        Category category = categoryRepository.findById(request.categoryId())
+            .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + request.categoryId()));
         product.update(request.name(), request.price(), request.imageUrl(), category);
         productRepository.save(product);
         return ProductResponse.from(product);
@@ -84,5 +88,10 @@ public class ProductService {
         if (!errors.isEmpty()) {
             throw new IllegalArgumentException(String.join(", ", errors));
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
     }
 }

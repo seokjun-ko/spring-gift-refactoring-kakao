@@ -35,6 +35,9 @@ public class OrderController {
         Pageable pageable
     ) {
         var member = authenticationResolver.extractMember(authorization);
+        if (member == null) {
+            return ResponseEntity.status(401).build();
+        }
         var orders = orderService.getOrders(member.getId(), pageable);
         return ResponseEntity.ok(orders);
     }
@@ -45,6 +48,10 @@ public class OrderController {
         @Valid @RequestBody OrderRequest request
     ) {
         var member = authenticationResolver.extractMember(authorization);
+        if (member == null) {
+            return ResponseEntity.status(401).build();
+        }
+
         var saved = orderService.createOrder(member, request);
         if (saved == null) {
             return ResponseEntity.notFound().build();
