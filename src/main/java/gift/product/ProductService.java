@@ -85,9 +85,4 @@ public class ProductService {
             throw new IllegalArgumentException(String.join(", ", errors));
         }
     }
-
-    @Transactional(readOnly = true)
-    public List<Category> findAllCategories() {
-        return categoryService.findAllEntities();
-    }
 }

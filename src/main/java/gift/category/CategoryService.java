@@ -36,10 +36,6 @@ public class CategoryService {
         return CategoryResponse.from(saved);
     }
 
-    public List<Category> findAllEntities() {
-        return categoryRepository.findAll();
-    }
-
     @Transactional
     public CategoryResponse update(Long id, CategoryRequest request) {
         Category category = findEntityById(id);
