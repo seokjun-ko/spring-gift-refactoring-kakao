@@ -45,9 +45,7 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id);
-        }
-        categoryRepository.deleteById(id);
+        Category category = findEntityById(id);
+        categoryRepository.delete(category);
     }
 }
