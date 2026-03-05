@@ -111,4 +111,24 @@ class MemberServiceTest {
         assertThat(member.getEmail()).isEqualTo("newemail@example.com");
         assertThat(member.getPassword()).isEqualTo("newpassword");
     }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql", "/data/seed/delete_member_success.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 존재하는_회원을_삭제하면_재조회_시_찾을_수_없다() {
+        memberService.delete(1L);
+
+        assertThatThrownBy(() -> memberService.findById(1L))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("Member not found");
+    }
+
+    @Test
+    @Sql(scripts = {"/data/truncate.sql"},
+         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void 존재하지_않는_회원을_삭제하면_예외가_발생한다() {
+        assertThatThrownBy(() -> memberService.delete(999L))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("999");
+    }
 }
