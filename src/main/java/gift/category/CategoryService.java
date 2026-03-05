@@ -22,9 +22,12 @@ public class CategoryService {
     }
 
     public CategoryResponse findById(Long id) {
-        Category category = categoryRepository.findById(id)
+        return CategoryResponse.from(findEntityById(id));
+    }
+
+    public Category findEntityById(Long id) {
+        return categoryRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("카테고리가 존재하지 않습니다. id=" + id));
-        return CategoryResponse.from(category);
     }
 
     @Transactional
